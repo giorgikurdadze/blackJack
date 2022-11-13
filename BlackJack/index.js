@@ -1,22 +1,18 @@
-let player = {
-    chips: 200,
-    name: "User"
-}
+let points = 200
+let playerName = "User"
 let cards = []
 let sum = 0
 let isAlive = false
 let hasBlackJack = false
 let message = ""
-let outofgame = ""
 let messageEL = document.querySelector("#message-el")
 let sumEL = document.querySelector("#sum-el")
 let cardEl = document.querySelector("#card-el")
 let playerEl = document.querySelector("#player-el")
-let outofpointEl = document.querySelector("#outofpoint-el")
 
 
 function getRandomCard() {
-    playerEl.textContent = player.name + ": $" + player.chips
+    playerEl.textContent = playerName + ": $" + points
     let randomNumber = Math.floor(Math.random() * 13) + 1
     if (randomNumber > 10) {
         return 10
@@ -29,7 +25,11 @@ function getRandomCard() {
 
 
 function startGame() {
+    if (isAlive === true && hasBlackJack == false) {
+        startGame()
+    }
     isAlive = true
+    hasBlackJack = false
     let firstCard = getRandomCard()
     let seconCard = getRandomCard()
     cards = [firstCard, seconCard]
@@ -59,7 +59,8 @@ function renderGame() {
 
 
 function addNewCard() {
-    if (isAlive === true && hasBlackJack === false) {
+
+    if (isAlive === true && hasBlackJack == false) {
         let thirdCard = getRandomCard()
         sum += thirdCard
         cards.push(thirdCard)
