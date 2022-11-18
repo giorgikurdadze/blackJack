@@ -5,6 +5,7 @@ body {
     text-align: center;
     color: white;
     font-weight: bold;
+    /* font-size: xx-large; */
 
 }
 
@@ -26,4 +27,31 @@ button {
     font-weight: bold;
     border: none;
     border-radius: 2px;
+}
+
+
+.dealer {
+    width: 100px;
+}
+
+.result img {
+    float: left;
+    width: 150px;
+    height: 38px;
+}
+
+.dealerChat {
+    position: relative;
+    width: 400px;
+    height: 200px;
+    border: 3px solid #73AD21
+}
+
+#message-el {
+    position: absolute;
+    top: 90px;
+    right: -1;
+    width: 100px;
+    height: 80px;
+    border: 3px solid #73AD21;
 }
