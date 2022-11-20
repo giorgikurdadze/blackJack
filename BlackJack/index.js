@@ -1,13 +1,17 @@
 // points
+let cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
+let colors = ["clubs", "diamonds", "hearts", "spades"]
+
+let numbericValues = new Map([
+    ['J', 10], ['Q', 10], ['K', 10], ['A', 11]
+])
+
 let userCards = []
 let dealerCards = []
 
-// `<img style="background-color: white; width: 150px; border-radius:5px; margin: 5px;" src="./Photos/Cards/${randomNumber}_of_${colors[Math.floor(Math.random() * colors.length)]}.png" />`
-
 // main engine
-let colors = ["clubs", "diamonds", "hearts", "spades"]
 let getRandomCard = (isDealer=false) => {
-    let number = Math.floor(Math.random() * 13 + 2)
+    let number = cards[Math.floor(Math.random() * cards.length)]
     let color = colors[Math.floor(Math.random() * colors.length)]
     if (number >= 10 && number != 14) {
         number = 10
@@ -15,7 +19,7 @@ let getRandomCard = (isDealer=false) => {
         number = 11
     } 
 
-    isDealer ? dealerCards.push({number, color}) : userCards.push({number, color})
+    isDealer ? dealerCards.push({number, color, flip: true}) : userCards.push({number, color, flip: true})
 }
 
 // main functions
@@ -29,6 +33,7 @@ let startGame = () => {
     // for dealer
     getRandomCard(true)
     getRandomCard(true)
+    dealerCards[0].flip = false
 
     renderCards() 
 }
@@ -36,20 +41,24 @@ let startGame = () => {
 let cardEl = document.querySelector("#user-card-el")
 let dealerEl = document.querySelector("#dealer-card-el")
 let renderCards = () => {
+    cardEl.innerHTML = ''
+    dealerEl.innerHTML = ''
     userCards.map(e => {
-        cardEl.innerHTML += `<img style="background-color: white; width: 150px; border-radius:5px; margin: 5px;" src="./Photos/Cards/${e.number}_of_${e.color}.png`
-        console.log(e)
+        cardEl.innerHTML += `<img style="background-color: white; width: 150px; height: 220px; border-radius:5px; margin: 5px;" src="./Photos/Cards/${e.number}_of_${e.color}.png" />`
     })
     dealerCards.map(e => {
-        dealerEl.innerHTML += `<img style="background-color: white; width: 150px; border-radius:5px; margin: 5px;" src="./Photos/Cards/${e.number}_of_${e.color}.png`
-        console.log(e)
+        if (e.flip) {
+            dealerEl.innerHTML += `<img style="width: 150px; height: 220px; border-radius:5px; margin: 5px;" src="./Photos/Cards/back.png" />`
+        } else {
+            dealerEl.innerHTML += `<img style="background-color: white; width: 150px; height: 220px; border-radius:5px; margin: 5px;" src="./Photos/Cards/${e.number}_of_${e.color}.png" />`
+        }
     })
 }
 
 let addCard = () => {
     
-    console.log(userCards)
-    console.log(dealerCards)
+    getRandomCard()
+    renderCards()
 }
 
 // buttons
