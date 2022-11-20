@@ -1,70 +1,24 @@
-let points = 200
-let playerName = "User"
-let cards = []
-let sum = 0
-let isAlive = false
-let hasBlackJack = false
-let message = ""
 let messageEL = document.querySelector("#message-el")
 let sumEL = document.querySelector("#sum-el")
 let cardEl = document.querySelector("#card-el")
 let playerEl = document.querySelector("#player-el")
-
+let startGame_btn = document.querySelector("#startGame")
+let addNewCard = document.querySelector("#addNewCard")
+let kk = ["clubs", "diamonds", "hearts", "spades"]
 
 function getRandomCard() {
-    playerEl.textContent = playerName + ": $" + points
-    let randomNumber = Math.floor(Math.random() * 13) + 1
-    if (randomNumber > 10) {
-        return 10
-    } else if (randomNumber === 1) {
-        return 11
-    } else {
-        return randomNumber
-    }
+    let randomNumber = Math.floor(Math.random() * 12 + 2)
+    return `<img style = "background-image: url(./Photos/Cards/back.png); border-radius:7px" src="./Photos/Cards/${randomNumber}_of_${kk[Math.floor(Math.random() * kk.length)]}.png" />`
 }
 
-
+let isAlive = false
+let hasBlackJack = false
 function startGame() {
-    if (isAlive === true && hasBlackJack == false) {
-        startGame()
-    }
-    isAlive = true
-    hasBlackJack = false
-    let firstCard = getRandomCard()
-    let seconCard = getRandomCard()
-    cards = [firstCard, seconCard]
-    sum = firstCard + seconCard
-    renderGame()
+    cardEl.innerHTML += getRandomCard()
+    console.log("uieoir")
 }
 
 
-function renderGame() {
-    sumEL.textContent = "Sum: " + sum
-    cardEl.textContent = "Card: "
-    for (let i = 0; i < cards.length; i++) {
-        console.log(cards)
-        cardEl.textContent += cards[i] + " "
-    }
-    if (sum <= 20) {
-        message = "Do you want to draw a new card? "
-    } else if (sum === 21) {
-        message = "you have got blackJack"
-        hasBlackJack = true
-    } else {
-        message = "you are out of the game "
-        isAlive = false
-    }
-    messageEL.textContent = message
-}
 
 
-function addNewCard() {
-
-    if (isAlive === true && hasBlackJack == false) {
-        let thirdCard = getRandomCard()
-        sum += thirdCard
-        cards.push(thirdCard)
-    }
-    renderGame()
-}
-
+startGame_btn.addEventListener("click", () => console.log("sdad"))
